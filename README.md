@@ -17,27 +17,29 @@ Security Groups for HTTP and SSH access.
 S3 bucket (for storing static files/images).
 
 ****Architecture****
-   Internet
-   │
-   ▼
-┌───────────┐
-│   ALB     │  (Application Load Balancer)
-└─────┬─────┘
-      │
- ┌────┴─────┐
- │          │
-▼           ▼
-EC2-1     EC2-2
-(subnet1) (subnet2)
+ 
+
+ Internet
+  ↳  Application Load Balancer (ALB)
+    - Routes traffic across two servers
+    - Performs health checks
+    - Ensures high availability
+       ↳  EC2 Instance 1 (Apache Web Server)
+       ↳  EC2 Instance 2 (Apache Web Server
 
 
  ****Project Structure****
-├── main.tf          # Infrastructure resources (VPC, Subnets, IGW, ALB, EC2, SG, etc.)
-├── provider.tf      # Provider configuration (AWS region, provider version)
-├── variables.tf     # Variables for reusability (CIDR, etc.)
-├── userdata.sh      # User data script for WebServer 1 (Apache + HTML page)
-├── userdata2.sh     # User data script for WebServer 2 (Apache + HTML page)
-└── README.md        # Project documentation
+    main.tf → Defines AWS resources (VPC, Subnets, ALB, EC2, SG, etc.)
+
+    provider.tf → AWS provider and region settings
+
+    variables.tf → Stores reusable values like CIDR block
+
+    userdata.sh → Bootstrap script for Web Server 1
+
+    userdata2.sh → Bootstrap script for Web Server 2
+
+    README.md → Project documentation
 
 ***Steps to Deploy****
 
