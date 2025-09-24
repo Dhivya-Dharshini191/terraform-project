@@ -18,15 +18,18 @@ S3 bucket (for storing static files/images).
 
 ****Architecture****
    Internet
-      |
-   ┌───────┐
-   │  ALB  │
-   └───┬───┘
-       │
- ┌─────┴─────┐
- │           │
-EC2-1      EC2-2
-(subnet-1) (subnet-2)
+   │
+   ▼
+┌───────────┐
+│   ALB     │  (Application Load Balancer)
+└─────┬─────┘
+      │
+ ┌────┴─────┐
+ │          │
+▼           ▼
+EC2-1     EC2-2
+(subnet1) (subnet2)
+
 
  ****Project Structure****
 ├── main.tf          # Infrastructure resources (VPC, Subnets, IGW, ALB, EC2, SG, etc.)
